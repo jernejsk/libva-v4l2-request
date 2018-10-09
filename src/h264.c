@@ -338,6 +338,7 @@ static void h264_va_slice_to_v4l2(struct request_data *driver_data,
 		VASlice->disable_deblocking_filter_idc;
 	slice->slice_alpha_c0_offset_div2 = VASlice->slice_alpha_c0_offset_div2;
 	slice->slice_beta_offset_div2 = VASlice->slice_beta_offset_div2;
+	slice->frame_num = VAPicture->frame_num;
 
 	if (((VASlice->slice_type % 5) == H264_SLICE_P) ||
 	    ((VASlice->slice_type % 5) == H264_SLICE_B)) {
