@@ -259,8 +259,12 @@ static void h264_va_picture_to_v4l2(struct request_data *driver_data,
 		VAPicture->seq_fields.bits.log2_max_pic_order_cnt_lsb_minus4;
 	sps->pic_order_cnt_type = VAPicture->seq_fields.bits.pic_order_cnt_type;
 	sps->pic_width_in_mbs_minus1 = VAPicture->picture_width_in_mbs_minus1;
-	sps->pic_height_in_map_units_minus1 =
-		VAPicture->picture_height_in_mbs_minus1;
+	if (VAPicture->seq_fields.bits.frame_mbs_only_flag)
+               sps->pic_height_in_map_units_minus1 =
+                       VAPicture->picture_height_in_mbs_minus1;
+       else
+               sps->pic_height_in_map_units_minus1 =
+                       (VAPicture->picture_height_in_mbs_minus1 + 1) / 2 - 1;
 
 	if (VAPicture->seq_fields.bits.residual_colour_transform_flag)
 		sps->flags |= V4L2_H264_SPS_FLAG_SEPARATE_COLOUR_PLANE;
