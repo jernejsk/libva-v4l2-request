@@ -202,6 +202,10 @@ static void h264_fill_dpb(struct request_data *data,
 
 		if (entry->pic.flags & VA_PICTURE_H264_LONG_TERM_REFERENCE)
 			dpb->flags |= V4L2_H264_DPB_ENTRY_FLAG_LONG_TERM;
+		if (entry->pic.flags & VA_PICTURE_H264_BOTTOM_FIELD)
+			dpb->flags |= V4L2_H264_DPB_ENTRY_FLAG_BOTTOM_FIELD;
+		if (entry->pic.flags & VA_PICTURE_H264_TOP_FIELD)
+			dpb->flags |= V4L2_H264_DPB_ENTRY_FLAG_TOP_FIELD;
 	}
 }
 
